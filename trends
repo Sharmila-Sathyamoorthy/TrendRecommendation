@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+
+class Trends extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List<String> trends = [
+      'Oversized Blazers',
+      'Bucket Hats',
+      'Pastel Colors',
+    ]; // Mock data
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Trending Now')),
+      body: ListView.builder(
+        itemCount: trends.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(trends[index]),
+          );
+        },
+      ),
+    );
+  }
+}
