@@ -1,0 +1,119 @@
+import 'package:flutter/material.dart';
+import 'style_quiz.dart';
+import 'recommendations.dart';
+import 'trends.dart';
+import 'color_analysis.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Trend Centric Recommendations')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StyleQuiz()),
+                );
+              },
+              label: 'Start Style Quiz',
+            ),
+            SizedBox(height: 16),
+            AnimatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Trends()),
+                );
+              },
+              label: 'See Trends',
+            ),
+            SizedBox(height: 16),
+            AnimatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ColorAnalysis()),
+                );
+              },
+              label: 'Analyze Colors',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AnimatedButton extends StatefulWidget {
+  final VoidCallback onPressed;
+  final String label;
+
+  const AnimatedButton({
+    required this.onPressed,
+    required this.label,
+  });
+
+  @override
+  _AnimatedButtonState createState() => _AnimatedButtonState();
+}
+
+class _AnimatedButtonState extends State<AnimatedButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: _isHovered ? Colors.blue.shade700 : Colors.blue,
+          boxShadow: [
+            if (_isHovered)
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+          ],
+        ),
+        child: InkWell(
+          onTap: widget.onPressed,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+            child: Text(
+              widget.label,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
