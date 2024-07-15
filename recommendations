@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+
+class Recommendations extends StatelessWidget {
+  final String stylePreference;
+
+  Recommendations(this.stylePreference);
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> recommendations = [
+      'Casual Shirt',
+      'Denim Jacket',
+      'Leather Boots',
+    ]; // Mock data
+
+    if (stylePreference.toLowerCase() == 'casual') {
+      recommendations = ['T-shirt', 'Jeans', 'Sneakers'];
+    } else if (stylePreference.toLowerCase() == 'formal') {
+      recommendations = ['Suit', 'Dress Shoes', 'Tie'];
+    } else if (stylePreference.toLowerCase() == 'sporty') {
+      recommendations = ['Tracksuit', 'Running Shoes', 'Cap'];
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Recommendations')),
+      body: ListView.builder(
+        itemCount: recommendations.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(recommendations[index]),
+          );
+        },
+      ),
+    );
+  }
+}
